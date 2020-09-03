@@ -4,7 +4,16 @@ RUN apt-get update -y && apt-get install -y libpng-dev libzip-dev libxml2-dev li
 RUN docker-php-ext-install mbstring pdo_mysql json gd xml zip bz2 opcache bcmath exif fileinfo intl calendar
 RUN pecl install xdebug
 RUN docker-php-ext-enable xdebug
-RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-RUN php -r "if (hash_file('SHA384', 'composer-setup.php') === 'e0012edf3e80b6978849f5eff0d4b4e4c79ff1609dd1e613307e16318854d24ae64f26d17af3ef0bf7cfb710ca74755a') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-RUN php composer-setup.php --install-dir=/bin --filename=composer
+
+RUN wget https://getcomposer.org/installer -O composer-setup.php
+RUN wget https://composer.github.io/installer.sha384sum
+
+RUN sha384sum --check installer.sha384sum \
+if [ $? != 0 ]; then \ 
+  echo 'composer checksum is not valid' && rm composer-setup.php && rm installer.sha384sum \
+  exit 1 \
+fi
+
 RUN php -r "unlink('composer-setup.php');"
+
+RUN php -r "unlink('installer.sha384sum');"
