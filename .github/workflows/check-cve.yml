@@ -1,0 +1,14 @@
+name: Mark stale issues and pull requests
+
+on:
+  schedule:
+  - cron: "30 1 * * *"
+
+jobs:
+  check-cve:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - docker run -d --name db arminc/clair-db:latest
+    
