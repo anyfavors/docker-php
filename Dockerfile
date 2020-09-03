@@ -5,8 +5,8 @@ RUN docker-php-ext-install mbstring pdo_mysql json gd xml zip bz2 opcache bcmath
 RUN pecl install xdebug
 RUN docker-php-ext-enable xdebug
 
-RUN wget https://getcomposer.org/installer -O composer-setup.php
-RUN wget https://composer.github.io/installer.sha384sum
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+RUN php -r "copy('https://composer.github.io/installer.sha384sum', 'installer.sha384sum');
 
 RUN sha384sum --check installer.sha384sum \
 if [ $? != 0 ]; then \ 
