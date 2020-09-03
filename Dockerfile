@@ -6,7 +6,7 @@ RUN pecl install xdebug
 RUN docker-php-ext-enable xdebug
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-RUN php -r "copy('https://composer.github.io/installer.sha384sum', 'installer.sha384sum');
+RUN php -r "copy('https://composer.github.io/installer.sha384sum', 'installer.sha384sum');"
 
 RUN sha384sum --check installer.sha384sum \
 if [ $? != 0 ]; then \ 
