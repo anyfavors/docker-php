@@ -1,4 +1,4 @@
-name: Mark stale issues and pull requests
+name: Check if image has CVEs
 
 on:
   schedule:
