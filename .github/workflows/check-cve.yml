@@ -14,7 +14,7 @@ jobs:
         run: |
           docker run -d --name db arminc/clair-db:latest
           docker run -p 6060:6060 --link db:postgres -d --name clair --restart on-failure arminc/clair-local-scan:v2.0.1
-          apt-get install ca-certificates
+          sudo apt-get install ca-certificates
           docker pull ghcr.io/anyfavors/php:latest
           wget https://github.com/arminc/clair-scanner/releases/download/v8/clair-scanner_linux_amd64
           mv clair-scanner_linux_amd64 clair-scanner
